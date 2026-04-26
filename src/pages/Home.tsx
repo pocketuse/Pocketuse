@@ -8,19 +8,14 @@ import {
   Smartphone, 
   ArrowRight, 
   Plus, 
-  Star, 
   Mail,
   Activity,
-  Fingerprint,
   Layers
 } from "lucide-react";
 import { 
   TaskItem, 
   StatItem, 
-  ServiceCard, 
-  ProductTask, 
-  FeatureItem, 
-  StoreBadge 
+  ServiceCard
 } from "../components/Common";
 import { useNavigate } from "react-router-dom";
 
@@ -39,6 +34,18 @@ export default function Home() {
 
   const bgX = useSpring(useTransform(mouseX, [0, 1], [-20, 20]), { damping: 50, stiffness: 200 });
   const bgY = useSpring(useTransform(mouseY, [0, 1], [-20, 20]), { damping: 50, stiffness: 200 });
+
+  const apps = [
+    {
+      name: "Ritual",
+      category: "Lifestyle / Productivity",
+      platform: "Android",
+      status: "Live",
+      summary: "Habit, task, and mood tracking in a calm all-in-one daily companion.",
+      accent: "#7C9A6D",
+      wallClass: "md:col-span-12 xl:col-span-12",
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-bg text-text-primary overflow-x-hidden">
@@ -259,6 +266,7 @@ export default function Home() {
       {/* PRODUCTS */}
       <section id="products" className="bg-bg py-25 px-6 md:px-12 relative">
         <div className="absolute top-[20%] left-[-100px] w-[420px] h-[420px] bg-blue/20 rounded-full blur-[120px] pointer-events-none opacity-20" />
+        <div className="absolute bottom-[10%] right-[-80px] w-[380px] h-[380px] bg-violet/20 rounded-full blur-[120px] pointer-events-none opacity-20" />
         <div className="max-w-[1160px] mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -270,69 +278,75 @@ export default function Home() {
               Product Portfolio
             </div>
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-display font-extrabold leading-[1.05] tracking-tight text-tint mb-4">
-              Apps We've<br /><span className="grad-text">Built & Shipped</span>
+              Our App<br /><span className="grad-text">Built & Shipped</span>
             </h2>
             <p className="text-[1rem] text-text-secondary leading-relaxed max-w-[520px] font-light">
-              Beyond client work, we build <span className="text-editorial">proprietary platforms</span>. Here's our flagship product, crafted with the same obsessive care we bring to every project.
+              A snapshot of <span className="text-editorial">Ritual</span>, our habit, todo, and mood companion for daily mindful growth.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="flex justify-center relative">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-violet/35 rounded-full blur-[70px] pointer-events-none" />
-              <IPhoneFrame className="h-[550px]">
-                <div className="w-full h-full bg-surface p-4 pt-11 flex flex-col gap-3.5">
-                  <div className="font-display text-[1rem] font-bold text-tint mb-0.5">Pocketuse To-Do</div>
-                  <div className="text-[0.62rem] text-text-secondary mb-3.5">3 tasks remaining today</div>
-
-                  <div className="bg-tint/5 border border-tint/7 rounded-xl p-3 mb-3.5">
-                    <div className="flex justify-between text-[0.62rem] text-text-secondary mb-2">
-                      <span>Daily Progress</span>
-                      <span className="text-violet">65%</span>
-                    </div>
-                    <div className="h-1 bg-tint/8 rounded-sm overflow-hidden">
-                      <div className="h-full w-[65%] bg-linear-to-r from-blue to-violet rounded-sm" />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <ProductTask label="Morning workout" done delay={0.1} />
-                    <ProductTask label="Read 20 pages" done delay={0.2} />
-                    <ProductTask label="Plan weekly goals" done delay={0.3} />
-                    <ProductTask label="Prepare presentation" delay={0.1} />
-                    <ProductTask label="Call with client" delay={0.2} />
-                    <ProductTask label="Ship app update" delay={0.3} />
-                  </div>
-                </div>
-              </IPhoneFrame>
+          <div className="rounded-[30px] border border-tint/10 bg-surface/60 backdrop-blur-lg p-4 md:p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <div className="text-[0.7rem] uppercase tracking-widest text-text-tertiary">Gallery Wall</div>
+              <div className="h-[1px] w-14 bg-blue/35" />
+              <div className="text-[0.7rem] uppercase tracking-widest text-text-tertiary">{apps.length} App Entries</div>
             </div>
 
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div className="inline-flex items-center gap-1.5 bg-violet/12 border border-violet/30 rounded-full px-3 py-1 text-[0.72rem] font-semibold text-[#a78bfa] uppercase tracking-widest">
-                <Star size={12} fill="currentColor" /> Flagship App
-              </div>
-              <h3 className="text-[2rem] font-display font-extrabold tracking-tight text-tint mb-2">Pocketuse To-Do List</h3>
-              <p className="text-[0.95rem] text-text-secondary leading-relaxed font-light mb-8">
-                A beautifully crafted productivity app designed to help you capture, organize, and accomplish everything that matters. Simple enough to start in seconds, powerful enough to run your day.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-fr">
+              {apps.map((app, index) => (
+                <motion.article
+                  key={app.name}
+                  initial={{ opacity: 0, y: 22, scale: 0.98 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.45, delay: index * 0.05 }}
+                  className={`group relative overflow-hidden rounded-[24px] border border-tint/10 bg-bg/70 p-5 md:p-6 min-h-[220px] ${app.wallClass}`}
+                  style={{
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), 0 20px 45px -35px ${app.accent}`,
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 opacity-80 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(120% 100% at 100% 0%, ${app.accent}33 0%, transparent 55%), radial-gradient(80% 120% at 0% 100%, ${app.accent}22 0%, transparent 58%)`,
+                    }}
+                  />
+                  <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(120deg,transparent_20%,rgba(255,255,255,0.08)_35%,transparent_55%)] opacity-0 group-hover:opacity-100 group-hover:translate-x-[16%] -translate-x-[16%] transition-all duration-700" />
 
-              <ul className="space-y-3.5 mb-10">
-                <FeatureItem icon="✅" text="Smart task organization with priority levels, tags, and due dates that adapt to how you work." />
-                <FeatureItem icon="📊" text="Daily progress tracking with streaks and insights to keep your momentum going." />
-                <FeatureItem icon="🔔" text="Intelligent reminders that surface the right task at the right time — without the noise." />
-                <FeatureItem icon="☁️" text="Seamless sync across all your devices so your tasks are always where you are." />
-              </ul>
+                  <div className="relative z-2 h-full flex flex-col">
+                    <div className="flex items-center justify-between gap-3 mb-5">
+                      <span
+                        className="text-[0.62rem] uppercase tracking-widest px-2.5 py-1 rounded-full border"
+                        style={{
+                          borderColor: `${app.accent}66`,
+                          color: app.accent,
+                          backgroundColor: `${app.accent}1A`,
+                        }}
+                      >
+                        {app.status}
+                      </span>
+                      <span className="text-[0.65rem] uppercase tracking-widest text-text-tertiary">{String(index + 1).padStart(2, "0")}</span>
+                    </div>
 
-              <div className="flex flex-wrap gap-3.5">
-                <StoreBadge icon="🍎" platform="App Store" />
-                <StoreBadge icon="▶" platform="Google Play" />
-              </div>
-            </motion.div>
+                    <h3 className="text-[1.2rem] md:text-[1.35rem] font-display font-extrabold tracking-tight text-tint leading-[1.15] mb-2">
+                      {app.name}
+                    </h3>
+                    <div className="text-[0.7rem] uppercase tracking-widest text-text-tertiary mb-4">{app.category}</div>
+
+                    <p className="text-[0.92rem] text-text-secondary leading-relaxed font-light mb-6 max-w-[46ch]">
+                      {app.summary}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between gap-3 border-t border-tint/10 pt-3.5">
+                      <span className="text-[0.68rem] uppercase tracking-widest text-text-tertiary">{app.platform}</span>
+                      <span className="text-[0.68rem] uppercase tracking-widest text-text-tertiary group-hover:text-tint transition-colors">
+                        App Snapshot
+                      </span>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </div>
       </section>

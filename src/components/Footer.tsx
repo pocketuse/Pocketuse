@@ -21,7 +21,6 @@ export function Footer() {
           <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 list-none">
             <Link to="/app-development" className="text-[0.8rem] text-text-secondary hover:text-tint transition-colors">Development</Link>
             <Link to="/app-marketing" className="text-[0.8rem] text-text-secondary hover:text-tint transition-colors">Marketing</Link>
-            <Link to="/premium-apps" className="text-[0.8rem] text-text-secondary hover:text-tint transition-colors">Premium Apps</Link>
             <Link to="/showcase" className="text-[0.8rem] text-text-secondary hover:text-tint transition-colors">Showcase</Link>
             <Link to="/tools" className="text-[0.8rem] text-text-secondary hover:text-tint transition-colors">Tools</Link>
           </div>

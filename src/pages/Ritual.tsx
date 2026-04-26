@@ -55,6 +55,7 @@ export default function Ritual() {
   ]);
 
   const [activeId, setActiveId] = React.useState<string | null>(null);
+  const [logoLoadError, setLogoLoadError] = React.useState(false);
   const [streakDays, setStreakDays] = React.useState<boolean[]>(
     Array.from({ length: 28 }, (_, i) => i < 22) // 22 day streak
   );
@@ -90,7 +91,7 @@ export default function Ritual() {
     <div className="relative min-h-screen bg-bg text-text-primary overflow-x-hidden font-sans">
       <SEO 
         title="Ritual Habit Tracker App" 
-        description="Discover Ritual, our flagship habit tracking app. Build better routines, track your progress, and achieve your goals with our beautifully designed mobile application." 
+        description="Discover Ritual, our flagship habit tracking app. Build better routines, track your progress, and achieve your goals with our beautifully designed Android application." 
         url="https://pocketuse.com/ritual" 
       />
       <Navbar />
@@ -108,7 +109,18 @@ export default function Ritual() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <div className="inline-flex items-center gap-2 bg-[#8FB37B]/10 border border-[#8FB37B]/20 rounded-full px-4 py-1.5 text-[0.75rem] font-bold text-[#8FB37B] uppercase tracking-[0.2em] mb-8">
-                <Zap size={14} />
+                <div className="w-6 h-6 rounded-md overflow-hidden bg-[#8FB37B]/20 flex items-center justify-center">
+                  {!logoLoadError ? (
+                    <img
+                      src="/ritual-logo.png"
+                      alt="Ritual logo"
+                      className="w-full h-full object-cover"
+                      onError={() => setLogoLoadError(true)}
+                    />
+                  ) : (
+                    <Zap size={13} />
+                  )}
+                </div>
                 Your Daily Companion
               </div>
               <h1 className="text-[clamp(3.5rem,7vw,5.5rem)] font-serif font-bold leading-[1] tracking-tight text-tint mb-8">
@@ -117,6 +129,10 @@ export default function Ritual() {
               <p className="text-[1.25rem] text-text-secondary leading-relaxed max-w-[550px] font-light mb-12">
                 A beautifully crafted personal growth companion designed to help you balance habits, tasks, and emotional well-being.
               </p>
+
+              <div className="inline-flex items-center gap-2 bg-[#8FB37B]/10 border border-[#8FB37B]/25 rounded-full px-4 py-1.5 text-[0.72rem] font-bold text-[#8FB37B] uppercase tracking-[0.18em] mb-8">
+                Available on Android
+              </div>
               
               <div className="flex flex-wrap gap-5">
                 <button className="bg-[#8FB37B] text-[#0D0D0D] font-display font-bold px-10 py-4.5 rounded-2xl hover:scale-105 transition-all flex items-center gap-2 group shadow-[0_10px_30px_rgba(143,179,123,0.3)]">

@@ -41,7 +41,7 @@ const PROJECTS: CaseStudy[] = [
     title: "Ritual",
     category: "Productivity / iOS & Android",
     description: "Our flagship habit tracking app. Build better routines, track your progress, and achieve your goals.",
-    image: "https://picsum.photos/seed/ritualapp/1200/800",
+    image: "/ritual-logo.png",
     challenge: "Traditional habit trackers often feel like a chore, leading to high abandonment rates. The challenge was to create an experience that felt rewarding and aesthetically pleasing enough to become a habit itself.",
     solution: "We implemented a 'nature-inspired' glassmorphism design with slow-burn animations. The architecture uses a reactive state management system (Riverpod) for instant feedback and a local-first SQLite database with Firebase sync.",
     results: [
@@ -56,48 +56,6 @@ const PROJECTS: CaseStudy[] = [
       { label: "Performance", value: "99.9%" }
     ],
     accentColor: "#3B82F6"
-  },
-  {
-    id: "lumina-finance",
-    title: "Lumina Finance",
-    category: "Fintech / iOS",
-    description: "A revolutionary wealth management app for the next generation of investors.",
-    image: "https://picsum.photos/seed/app1/1200/800",
-    challenge: "Wealth management is often perceived as complex and intimidating. The goal was to build an app that simplifies investment strategies without sacrificing technical depth.",
-    solution: "Using high-performance Swift UI components and custom-built charting engines, we created a dashboard that visualizes multi-asset portfolios in real-time. Security was paramount, implementing biometric auth and E2EE for all transaction data.",
-    results: [
-      "Successfully managed $100M+ in assets",
-      "Reduced user onboarding time by 40%",
-      "0 security breaches since launch"
-    ],
-    techStack: ["Swift", "CoreData", "WebSockets", "Go (Server)", "AWS"],
-    stats: [
-      { label: "Asset Growth", value: "20Q/Q" },
-      { label: "Uptime", value: "100%" },
-      { label: "User NPS", value: "88" }
-    ],
-    accentColor: "#8B5CF6"
-  },
-  {
-    id: "zenith-health",
-    title: "Zenith Health",
-    category: "Healthcare / Android",
-    description: "AI-powered health tracking and personalized wellness coaching.",
-    image: "https://picsum.photos/seed/app2/1200/800",
-    challenge: "Most health apps provide raw data but lack actionable insights. Zenith needed to bridge the gap between tracking and real health improvement.",
-    solution: "We integrated Google Fit and Health Connect APIs to aggregate data, then processed it using an on-device TensorFlow Lite model for personalized coaching recommendations that respect user privacy.",
-    results: [
-      "25% average weight loss in first 6 months",
-      "Improved sleep quality for 70% of users",
-      "GDPR & HIPAA compliant architecture"
-    ],
-    techStack: ["Kotlin", "TensorFlow Lite", "Jetpack Compose", "GraphQL", "Python"],
-    stats: [
-      { label: "AI Accuracy", value: "94%" },
-      { label: "Engagement", value: "High" },
-      { label: "Data Safety", value: "A+" }
-    ],
-    accentColor: "#F97316"
   }
 ];
 
@@ -318,7 +276,7 @@ export default function Showcase() {
               initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
-              className="relative w-full max-w-[1200px] h-[90vh] bg-[#0E0E1C] border border-tint/10 rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-[0_50px_100px_rgba(0,0,0,0.8)]"
+              className="case-study-modal relative w-full max-w-[1200px] h-[90vh] bg-surface border border-tint/10 rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-[0_35px_80px_rgba(0,0,0,0.2)]"
             >
               <button 
                 onClick={closeProject}
@@ -335,7 +293,7 @@ export default function Showcase() {
                   className="w-full h-full object-cover opacity-80"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-[#0E0E1C] via-transparent to-transparent" />
+                <div className="case-study-preview-overlay absolute inset-0 bg-linear-to-t from-surface/95 via-transparent to-transparent" />
                 
                 <div className="absolute bottom-10 left-10 right-10">
                   <div className="flex gap-4">
@@ -433,6 +391,17 @@ export default function Showcase() {
       </AnimatePresence>
 
       <style dangerouslySetInnerHTML={{ __html: `
+        .case-study-modal {
+          background: var(--color-surface);
+          box-shadow: 0 35px 80px rgba(0, 0, 0, 0.2);
+        }
+        .dark .case-study-modal {
+          background: #0E0E1C;
+          box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+        }
+        .dark .case-study-preview-overlay {
+          background: linear-gradient(to top, #0E0E1C 0%, transparent 60%);
+        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
@@ -440,10 +409,16 @@ export default function Showcase() {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(0, 0, 0, 0.15);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.25);
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.2);
         }
       `}} />

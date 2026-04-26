@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/premium-apps",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist"
 }

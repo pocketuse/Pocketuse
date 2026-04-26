@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon, Leaf } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
 export function Navbar() {
@@ -8,6 +8,7 @@ export function Navbar() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isAppsOpen, setIsAppsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [ritualLogoError, setRitualLogoError] = useState(false);
   const location = useLocation();
   const { theme, setTheme, resolvedTheme } = useTheme();
 
@@ -113,32 +114,21 @@ export function Navbar() {
                   className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-tint/5 transition-colors text-sm font-medium text-text-secondary hover:text-tint"
                   onClick={() => setIsAppsOpen(false)}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-sm">🌿</div>
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 overflow-hidden">
+                    {!ritualLogoError ? (
+                      <img
+                        src="/ritual-logo.png"
+                        alt="Ritual logo"
+                        className="w-full h-full object-cover"
+                        onError={() => setRitualLogoError(true)}
+                      />
+                    ) : (
+                      <Leaf size={16} />
+                    )}
+                  </div>
                   <div className="flex flex-col">
                     <span>Ritual</span>
                     <span className="text-[0.65rem] text-text-tertiary">Mindful Growth Companion</span>
-                  </div>
-                </Link>
-                <Link 
-                  to="/premium-apps" 
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-tint/5 transition-colors text-sm font-medium text-text-secondary hover:text-tint"
-                  onClick={() => setIsAppsOpen(false)}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center text-blue text-sm">✨</div>
-                  <div className="flex flex-col">
-                    <span>Premium Templates</span>
-                    <span className="text-[0.65rem] text-text-tertiary">View full catalog</span>
-                  </div>
-                </Link>
-                <Link 
-                  to="/#products" 
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-tint/5 transition-colors text-sm font-medium text-text-secondary hover:text-tint"
-                  onClick={() => setIsAppsOpen(false)}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-tint/5 flex items-center justify-center text-tint text-sm">📁</div>
-                  <div className="flex flex-col">
-                    <span>Selected Works</span>
-                    <span className="text-[0.65rem] text-text-tertiary">Portfolio highlights</span>
                   </div>
                 </Link>
               </div>
@@ -205,16 +195,19 @@ export function Navbar() {
               <div className="flex flex-col gap-6">
                 <span className="text-[0.65rem] font-bold text-text-tertiary uppercase tracking-widest block">Our Apps</span>
                 <Link to="/ritual" className="flex items-center gap-4 text-xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>
-                  <span className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">🌿</span>
+                  <span className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 overflow-hidden">
+                    {!ritualLogoError ? (
+                      <img
+                        src="/ritual-logo.png"
+                        alt="Ritual logo"
+                        className="w-full h-full object-cover"
+                        onError={() => setRitualLogoError(true)}
+                      />
+                    ) : (
+                      <Leaf size={18} />
+                    )}
+                  </span>
                   Ritual
-                </Link>
-                <Link to="/premium-apps" className="flex items-center gap-4 text-xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>
-                  <span className="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center text-blue">✨</span>
-                  Premium Templates
-                </Link>
-                <Link to="/#products" className="flex items-center gap-4 text-xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>
-                  <span className="w-10 h-10 rounded-xl bg-tint/5 flex items-center justify-center text-tint">📁</span>
-                  Selected Works
                 </Link>
               </div>
             </li>

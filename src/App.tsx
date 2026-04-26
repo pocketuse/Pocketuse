@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence } from "motion/react";
@@ -16,7 +16,6 @@ import RitualPrivacy from "./pages/RitualPrivacy";
 import RitualTerms from "./pages/RitualTerms";
 import TemplateCustomization from "./pages/TemplateCustomization";
 import StoreSubmission from "./pages/StoreSubmission";
-import PremiumApps from "./pages/PremiumApps";
 import Tools from "./pages/Tools";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -60,7 +59,7 @@ function AnimatedRoutes() {
         <Route path="/ritual/terms" element={<PageTransition><RitualTerms /></PageTransition>} />
         <Route path="/template-setup" element={<PageTransition><TemplateCustomization /></PageTransition>} />
         <Route path="/store-submission" element={<PageTransition><StoreSubmission /></PageTransition>} />
-        <Route path="/premium-apps" element={<PageTransition><PremiumApps /></PageTransition>} />
+        <Route path="/premium-apps" element={<Navigate to="/" replace />} />
         <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
         <Route path="/tools/:toolId" element={<PageTransition><Tools /></PageTransition>} />
       </Routes>
@@ -70,7 +69,7 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <HelmetProvider>
         <Router>
           <ScrollToTop />
