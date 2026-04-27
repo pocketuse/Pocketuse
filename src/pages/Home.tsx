@@ -37,13 +37,22 @@ export default function Home() {
 
   const apps = [
     {
+      name: "Showcase",
+      category: "Agency / Portfolio",
+      platform: "Web",
+      status: "Live",
+      summary: "A curated gallery of product experiences, design language, and launch-ready mobile concepts.",
+      accent: "#4A8DFF",
+      wallClass: "md:col-span-12 xl:col-span-6",
+    },
+    {
       name: "Ritual",
       category: "Lifestyle / Productivity",
       platform: "Android",
       status: "Live",
       summary: "Habit, task, and mood tracking in a calm all-in-one daily companion.",
       accent: "#7C9A6D",
-      wallClass: "md:col-span-12 xl:col-span-12",
+      wallClass: "md:col-span-12 xl:col-span-6",
     },
   ];
 

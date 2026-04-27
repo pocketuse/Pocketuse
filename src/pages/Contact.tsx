@@ -8,7 +8,6 @@ import {
   MessageSquare, 
   MapPin, 
   Send, 
-  Phone,
   Globe,
   Twitter,
   Linkedin,
@@ -24,17 +23,38 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
       setIsSuccess(true);
       setFormState({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setIsSuccess(false), 5000);
-    }, 1500);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "An error occurred";
+      setError(errorMessage);
+      console.error("Form submission error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,9 +106,10 @@ export default function Contact() {
                     value="hello@pocketuse.com" 
                   />
                   <ContactInfoItem 
-                    icon={<Phone className="text-violet" />} 
-                    title="Call Us" 
-                    value="+1 (555) 000-0000" 
+                    icon={<WhatsAppIcon className="text-[#25D366]" />} 
+                    title="WhatsApp Me"
+                    value="+923394631144"
+                    href="https://wa.me/923394631144"
                   />
                   <ContactInfoItem 
                     icon={<MapPin className="text-blue" />} 
@@ -194,6 +215,15 @@ export default function Contact() {
                       Thanks for reaching out! We'll get back to you shortly.
                     </motion.p>
                   )}
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center text-red-500 font-medium"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
                 </form>
               </div>
             </div>
@@ -207,7 +237,7 @@ export default function Contact() {
   );
 }
 
-function ContactInfoItem({ icon, title, value }: { icon: React.ReactNode, title: string, value: string }) {
+function ContactInfoItem({ icon, title, value, href }: { icon: React.ReactNode, title: string, value: string, href?: string }) {
   return (
     <div className="flex items-start gap-4">
       <div className="w-12 h-12 rounded-2xl bg-tint/5 border border-tint/10 flex items-center justify-center flex-shrink-0">
@@ -215,9 +245,36 @@ function ContactInfoItem({ icon, title, value }: { icon: React.ReactNode, title:
       </div>
       <div>
         <h3 className="text-sm font-bold text-text-secondary uppercase tracking-widest mb-1">{title}</h3>
-        <p className="text-tint font-medium text-lg">{value}</p>
+        {href ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-tint font-medium text-lg hover:text-blue transition-colors"
+          >
+            {value}
+          </a>
+        ) : (
+          <p className="text-tint font-medium text-lg">{value}</p>
+        )}
       </div>
     </div>
+  );
+}
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      className={className}
+      width="24"
+      height="24"
+      aria-hidden="true"
+      fill="currentColor"
+    >
+      <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.89 4.43-9.89 9.89 0 1.75.46 3.46 1.33 4.97L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.89-4.43 9.89-9.89a9.83 9.83 0 0 0-2.89-7.04zM12.05 20.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.37c0-4.53 3.69-8.22 8.23-8.22a8.17 8.17 0 0 1 5.82 2.41 8.17 8.17 0 0 1 2.4 5.82c0 4.53-3.69 8.21-8.21 8.21zm4.52-6.16c-.25-.12-1.47-.73-1.7-.82-.23-.08-.4-.12-.57.12-.17.25-.65.82-.8.99-.15.17-.3.19-.56.06-.25-.12-1.06-.39-2.02-1.24-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.3.37-.45.12-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.57-1.38-.78-1.89-.2-.49-.41-.42-.57-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.12.17 1.73 2.64 4.19 3.7.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.17.21-.58.21-1.07.15-1.17-.06-.1-.23-.17-.48-.29z" />
+    </svg>
   );
 }
 

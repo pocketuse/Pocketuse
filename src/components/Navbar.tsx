@@ -95,7 +95,6 @@ export function Navbar() {
               </div>
             </div>
           </li>
-          <li><Link to="/showcase" className="text-sm font-semibold text-text-secondary hover:text-tint transition-colors">Showcase</Link></li>
           <li 
             className="relative group"
             onMouseEnter={() => setIsAppsOpen(true)}
@@ -109,6 +108,17 @@ export function Navbar() {
             {/* Dropdown Menu */}
             <div className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 ${isAppsOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}>
               <div className="bg-surface border border-tint/10 rounded-2xl p-2 w-[240px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <Link 
+                  to="/showcase" 
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-tint/5 transition-colors text-sm font-medium text-text-secondary hover:text-tint"
+                  onClick={() => setIsAppsOpen(false)}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center text-blue text-sm">🎨</div>
+                  <div className="flex flex-col">
+                    <span>Showcase</span>
+                    <span className="text-[0.65rem] text-text-tertiary">Portfolio Highlights</span>
+                  </div>
+                </Link>
                 <Link 
                   to="/ritual" 
                   className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-tint/5 transition-colors text-sm font-medium text-text-secondary hover:text-tint"
@@ -134,6 +144,7 @@ export function Navbar() {
               </div>
             </div>
           </li>
+          <li><Link to="/contact" className="text-sm font-semibold text-text-secondary hover:text-tint transition-colors">Contact</Link></li>
           <li><Link to="/about" className="text-sm font-semibold text-text-secondary hover:text-tint transition-colors">About</Link></li>
           <li><Link to="/tools" className="text-sm font-semibold text-text-secondary hover:text-tint transition-colors">Tools</Link></li>
         </ul>
@@ -190,10 +201,13 @@ export function Navbar() {
           <div className="h-[1px] bg-tint/5 w-full mb-10" />
           
           <ul className="flex flex-col gap-8 list-none p-0 mb-12">
-            <li><Link to="/showcase" className="text-2xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>Showcase</Link></li>
             <li>
               <div className="flex flex-col gap-6">
                 <span className="text-[0.65rem] font-bold text-text-tertiary uppercase tracking-widest block">Our Apps</span>
+                <Link to="/showcase" className="flex items-center gap-4 text-xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>
+                  <span className="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center text-blue">🎨</span>
+                  Showcase
+                </Link>
                 <Link to="/ritual" className="flex items-center gap-4 text-xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>
                   <span className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 overflow-hidden">
                     {!ritualLogoError ? (
@@ -211,6 +225,7 @@ export function Navbar() {
                 </Link>
               </div>
             </li>
+            <li><Link to="/contact" className="text-2xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
             <li><Link to="/about" className="text-2xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
             <li><Link to="/tools" className="text-2xl font-bold text-tint" onClick={() => setIsMobileMenuOpen(false)}>Tools</Link></li>
           </ul>
