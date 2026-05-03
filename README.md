@@ -2,19 +2,34 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# PocketUse website
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/21f9f872-eafd-4ce3-8883-99089ac852b3
+This repo contains the PocketUse marketing site and its Vercel deployment settings.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+**Prerequisites:** Node.js
 
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Run the app:
    `npm run dev`
+
+## Deploy to GitHub and Vercel
+
+The repository is already connected to GitHub at `origin` and is ready to import into Vercel.
+
+1. Push your latest changes to GitHub.
+2. In Vercel, import the GitHub repository.
+3. Use these build settings:
+   `npm run build`
+   Output directory: `dist`
+4. Set environment variables in Vercel if you want the contact form to send email notifications:
+   `RESEND_API_KEY`
+
+The site uses React Router, so Vercel rewrites all routes to `index.html` while still preserving the `/premium-apps` redirect.
+
+## Contact Form
+
+The contact form works without email delivery configured. If you add `RESEND_API_KEY`, the serverless function at `api/contact.ts` will send mail through Resend in production.
